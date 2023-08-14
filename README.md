@@ -28,7 +28,7 @@ $_MT['assets_url']  = $_MT['assets_true']?'/gh/mt-theme/metron-assets@'.$_MT['as
 #### 9.修复特定场景下，用户无法打开注册页面的问题。
 #### 10.实现了部分APP对接接口，持续开发中。。。。
 
-免费技术交流群：[https://t.me/+2K1n4O1S54thYTY5](https://t.me/+2K1n4O1S54thYTY5)
+免费技术交流群：[https://t.me/+1VzMNdj10noxYmU1](https://t.me/+1VzMNdj10noxYmU1)
 
 ## 部署手册
 #### 1.连接 SSH 安装宝塔面板
@@ -39,11 +39,8 @@ $_MT['assets_url']  = $_MT['assets_true']?'/gh/mt-theme/metron-assets@'.$_MT['as
 
 #### 4.登录你的系统服务器下载源码
 - `cd /www/wwwroot/你的网站文件夹`
-<<<<<<< HEAD
-=======
 - `git init` 
 - `git clone https://xxxxxx.  ./`
->>>>>>> a2b9edc... Update .gitignore file
 
 #### 5.使用composer安装依赖
 

@@ -33,7 +33,7 @@ $_MT['assets_url']  = $_MT['assets_true']?'/gh/mt-theme/metron-assets@'.$_MT['as
 ## 部署手册
 #### 1.连接 SSH 安装宝塔面板
 
-#### 2.宝塔面板安装环境, 推荐使用 PHP 7.7、MySQL 5.7、Nginx 1.16
+#### 2.宝塔面板安装环境, 推荐使用 PHP 7.4、MySQL 5.7、Nginx 1.16
 
 #### 3.宝塔面板创建网站, 域名等信息自行填写
 

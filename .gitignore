@@ -1,0 +1,5 @@
+config/.config.php
+config/.metron_setting.php
+vendor/
+storage/
+.idea/

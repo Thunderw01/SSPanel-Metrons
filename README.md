@@ -11,7 +11,10 @@ $_MT['assets_url']  = $_MT['assets_true']?'/gh/mt-theme/metron-assets@'.$_MT['as
 - 解密原版本js（原版本已经加密,个人付费解密），方便后续二次开发及功能定制。
 - 导入sql时，自动导入关键的审计规则，减少安装时的工作量（方便小白使用）
 - 删除原版换肤功能（个人觉得不好看）
-
+- 因修改了登录页，请修改配置文件 .metron_setting.php中的index_background_image（如果图片不喜欢请自行更换），修改为：
+```php
+$_MT['index_background_image'] = "/images/login-bg.jpg";
+```
 #### 1.登录页/注册页样式修改，功能优化，增加问候功能（自动根据时间出现不同的问候语）
 #### 2.用户首页优化 
 - 删除原版巨丑的系统logo

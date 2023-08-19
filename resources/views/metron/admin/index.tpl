@@ -53,7 +53,28 @@
                 </div>
             </div>
             <div class="ui-card-wrap">
+
                 <div class="row">
+
+                        <div class="col-xx-12">
+                            <div class="card">
+                                <div class="card-main">
+                                    <div class="card-inner">
+                                        <h5>快捷操作(不可逆,请等待页面刷新)</h5>
+                                        <p>无关紧要的记录，请按时清理，尤其是实时流量记录增加的会很快，在超过页面消耗的最大内存时会报错</p>
+                                        <p>可自行Google 修改宝塔面板PHP memory_limit数值解决。若嫌麻烦，可进入主题配置文件，关闭快捷操作</p>
+
+                                        <button onclick="detect_log('detect_log','清理审计记录')" type="button" class="btn btn-primary">清理审计记录 {$sys->getDetectLog()}</button>&nbsp;
+                                        <button onclick="login_ip('login_ip','清理登陆IP记录')" type="button" class="btn btn-primary">清理登陆IP记录 {$sys->getLoginIp()}</button>&nbsp;
+                                        <button onclick="paylist('paylist','清理登陆IP记录')" type="button" class="btn btn-primary">清理未支付订单记录 {$sys->getPaylist()}</button>&nbsp;
+                                        <button onclick="node_info('node_info','清理节点信息记录')" type="button" class="btn btn-primary">清理节点信息记录 {$sys->getNodeInfoLog()}</button>&nbsp;
+                                        <button onclick="node_online_log('node_online_log','清理节点在线记录')" type="button" class="btn btn-primary">清理节点在线记录 {$sys->getNodeOnlineLog()}</button>&nbsp;
+                                        <button onclick="codelist('codelist','清理所有流水记录')" type="button" class="btn btn-primary">清理所有流水记录 {$sys->getCodelist()}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     <div class="col-xx-12 col-sm-3">
                         <div class="card">
                             <div class="card-main">
@@ -452,6 +473,30 @@
     </div>
 </main>
 
+<div aria-hidden="true" class="modal modal-va-middle fade" id="delete_modal" role="dialog"
+     tabindex="-1">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+            <div class="modal-heading">
+                <a class="modal-close" data-dismiss="modal">×</a>
+                <h2 class="modal-title">确认要删除？</h2>
+            </div>
+            <div class="modal-inner">
+                即将清理【<span id="del-msg" style="font-size: 16px;font-weight: 600"></span>】，此操作无法恢复，请您确认是否要进行删除。
+            </div>
+            <div class="modal-footer">
+                <p class="text-right">
+                    <button class="btn btn-flat btn-brand-accent waves-attach waves-effect"
+                            data-dismiss="modal" type="button">取消
+                    </button>
+                    <button class="btn btn-flat btn-brand-accent waves-attach" data-dismiss="modal"
+                            id="delete_input" type="button">确定
+                    </button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 
 {include file='admin/footer.tpl'}
 
@@ -651,3 +696,113 @@
     getTicketDetail();
 </script>
 {/literal}
+<script>
+    function detect_log(log, msg){
+        $("#del-msg").html(msg);
+        $("#delete_modal").modal();
+        $("#delete_modal").on('shown.bs.modal', function () {
+            $("#delete_input").click(function (){
+                $("#delete_input").html('正在删除...')
+                document.getElementById('delete_input').disabled=true;
+                delete_log(log);
+            });
+        });
+    }
+
+    function login_ip(log, msg){
+        $("#del-msg").html(msg);
+        $("#delete_modal").modal();
+        $("#delete_modal").on('shown.bs.modal', function () {
+            $("#delete_input").click(function (){
+                $("#delete_input").html('正在删除...')
+                document.getElementById('delete_input').disabled=true;
+                delete_log(log);
+            });
+        });
+    }
+
+    function paylist(log, msg){
+        $("#del-msg").html(msg);
+        $("#delete_modal").modal();
+        $("#delete_modal").on('shown.bs.modal', function () {
+            $("#delete_input").click(function (){
+                $("#delete_input").html('正在删除...')
+                document.getElementById('delete_input').disabled=true;
+                delete_log(log);
+            });
+        });
+    }
+
+    function node_info(log, msg){
+        $("#del-msg").html(msg);
+        $("#delete_modal").modal();
+        $("#delete_modal").on('shown.bs.modal', function () {
+            $("#delete_input").click(function (){
+                $("#delete_input").html('正在删除...')
+                document.getElementById('delete_input').disabled=true;
+                delete_log(log);
+            });
+        });
+    }
+
+    function trafficlog(log, msg){
+        $("#del-msg").html(msg);
+        $("#delete_modal").modal();
+        $("#delete_modal").on('shown.bs.modal', function () {
+            $("#delete_input").click(function (){
+                $("#delete_input").html('正在删除...')
+                document.getElementById('delete_input').disabled=true;
+                delete_log(log);
+            });
+        });
+    }
+
+    function codelist(log, msg){
+        $("#del-msg").html(msg);
+        $("#delete_modal").modal();
+        $("#delete_modal").on('shown.bs.modal', function () {
+            $("#delete_input").click(function (){
+                $("#delete_input").html('正在删除...')
+                document.getElementById('delete_input').disabled=true;
+                delete_log(log);
+            });
+        });
+    }
+
+    function node_online_log(log, msg){
+        $("#del-msg").html(msg);
+        $("#delete_modal").modal();
+        $("#delete_modal").on('shown.bs.modal', function () {
+            $("#delete_input").click(function (){
+                $("#delete_input").html('正在删除...')
+                document.getElementById('delete_input').disabled=true;
+                delete_log(log);
+            });
+        });
+    }
+
+    function delete_log(log) {
+        $.ajax({
+            type: "POST",
+            url: "/admin/" + log,
+            dataType: "json",
+            success: function (data) {
+                if (data.ret) {
+                    $("#delete_modal").modal("hide");
+                    $("#result").modal();
+                    $("#msg").html("已清空记录!");
+                    $('#nologin').attr("id","delete_input");
+                    window.setTimeout("location.href=window.location.href", 1000);
+                } else {
+                    $("#delete_modal").modal('hide');
+                    swal('Oops...',data.msg,'error');
+                }
+            },
+            error: function (jqXHR) {
+                $("#delete_modal").modal('hide');
+                $("#result").modal();
+                $("#msg").html("发生错误了: " + jqXHR.status);
+            }
+        });
+    }
+</script>

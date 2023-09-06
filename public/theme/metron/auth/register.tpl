@@ -15,29 +15,29 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group mb-0">
-                                                <input class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 mt-5" type="text" placeholder="昵称" name="name" id="name" autocomplete="new-password" />
+                                                <input class="form-control h-auto py-4 px-8 mt-5" type="text" placeholder="昵称" name="name" id="name" autocomplete="new-password" />
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group mb-0">
                                                 {if $metron['register_code'] === true}
-                                                <input class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 mt-5" data-code="true" type="text" placeholder="邀请码" name="code" id="code" autocomplete="new-password" />
+                                                <input class="form-control h-auto py-4 px-8 mt-5" data-code="true" type="text" placeholder="邀请码" name="code" id="code" autocomplete="new-password" />
                                                 {else}
-                                                <input class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 mt-5" data-code="false" type="text" placeholder="邀请码(可留空)" name="code" id="code" autocomplete="new-password" />
+                                                <input class="form-control h-auto py-4 px-8 mt-5" data-code="false" type="text" placeholder="邀请码(可留空)" name="code" id="code" autocomplete="new-password" />
                                                 {/if}
                                             </div>
                                         </div>
                                     </div>
                                     {else}
                                     <div class="form-group mb-0" style="white-space:nowrap;">
-                                        <input class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 pr-0" type="text" placeholder="昵称" name="name" id="name" autocomplete="new-password" />
+                                        <input class="form-control h-auto py-4 px-8 pr-0" type="text" placeholder="昵称" name="name" id="name" autocomplete="new-password" />
                                     </div>
                                     {/if}
 
                                     {if $metron['register_restricted_email'] === true}
                                     <div class="form-group mb-0" style="white-space:nowrap;">
                                         <div class="input-group mt-5">
-                                            <input class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-l-50 border-0 py-4 px-8 pr-0" type="text" placeholder="邮箱地址" name="email" id="email" autocomplete="new-password" />
+                                            <input class="form-control h-auto py-4 px-8 pr-0" type="text" placeholder="邮箱地址" name="email" id="email" autocomplete="new-password" />
                                             <select class="btn btn-pill btn-outline-code font-weight-bold rounded-l-0 pr-5 opacity-70 bg-dark-o-70" id="email_postfix" style="-webkit-appearance: none;">
                                                 {foreach $metron['list_of_available_mailboxes'] as $email}
                                                 <option value="{$email}" {if $email@index === 0}selected=""{/if}>{$email}</option>
@@ -47,16 +47,16 @@
                                     </div>
                                     {else}
                                     <div class="form-group mb-0" style="white-space:nowrap;">
-                                        <input class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 mt-5" type="text" placeholder="邮箱地址" name="email" id="email" autocomplete="new-password" />
+                                        <input class="form-control h-auto  py-4 px-8 mt-5" type="text" placeholder="邮箱地址" name="email" id="email" autocomplete="new-password" />
                                     </div>
                                     {/if}
 
                                     {if $config['enable_email_verify'] == 'true'}
                                     <div class="form-group mb-0" style="white-space:nowrap;">
                                         <div class="input-group mt-5">
-                                            <input class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-l-50 border-0 py-4 px-8 pr-0" type="text" placeholder="邮箱验证码" name="email_code" id="email_code" autocomplete="new-password" />
+                                            <input class="form-control h-auto  px-8 pr-0" type="text" placeholder="邮箱验证码" name="email_code" id="email_code" autocomplete="new-password" />
                                             <div class="input-group-append ml-0">
-                                                <button type="button" class="btn btn-pill btn-outline-code font-weight-bold pr-5 opacity-70 bg-dark-o-70" id="send_email" onclick="sendMail()">获取验证码</button>
+                                                <button type="button" class="btn btn-primary btn-lg icon-right" id="send_email" onclick="sendMail()">获取验证码</button>
                                             </div>
                                         </div>
                                     </div>
@@ -65,12 +65,12 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <input class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 mt-5" type="password" placeholder="密码" name="passwd" id="passwd" autocomplete="new-password" />
+                                                <input class="form-control h-auto py-4 px-8 mt-5" type="password" placeholder="密码" name="passwd" id="passwd" autocomplete="new-password" />
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <input class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 mt-5" type="password" placeholder="重复密码" name="repasswd" id="repasswd" autocomplete="new-password"/>
+                                                <input class="form-control h-auto py-4 px-8 mt-5" type="password" placeholder="重复密码" name="repasswd" id="repasswd" autocomplete="new-password"/>
                                             </div>
                                         </div>
                                     </div>
@@ -89,18 +89,18 @@
                                     </div>
                                 {/if}
                                 <div class="form-group d-flex flex-wrap justify-content-between align-items-center px-5">
-                                    <label class="checkbox checkbox-outline checkbox-white text-white m-0">
-                                        <input type="checkbox" id="agree" name="agree"/>注册即代表同意 <a class="text-white font-weight-bold" data-toggle="modal" data-target="#tos-modal"><strong>服务条款</strong></a>
+                                    <label class="checkbox m-0">
+                                        <input type="checkbox" id="agree" name="agree"/>注册即代表同意 <a class="font-weight-bold" data-toggle="modal" data-target="#tos-modal"><strong>服务条款</strong></a>
                                         <span></span>
                                     </label>
                                 </div>
                                 <div class="form-group text-center mt-10" style="white-space:nowrap;">
-                                    <button type="button" id="register_submit" class="btn btn-pill btn-outline-white btn-block font-weight-bold opacity-90 px-15 py-3 ">注册</button>
+                                    <button style="width:200px" type="button" id="register_submit" class="btn btn-primary btn-lg btn-icon icon-right">注册</button>
                                 </div>
                             </form>
                             <div class="mt-10">
                                 <span class="opacity-70 mr-4">已经有账号 ?</span>
-                                <a href="/auth/login" class="text-white font-weight-bold">立即登录</a>
+                                <a href="/auth/login" class="font-weight-bold">立即登录</a>
                             </div>
                         </div>
 
@@ -164,9 +164,9 @@
         num--;
     }
 
-    if ((getCookie('uid')) != '') {
-        window.location.href = '/user';
-    }
+    //if ((getCookie('uid')) != '') {
+    //    window.location.href = '/user';
+    // }
 
      {*dumplin：轮子1.js读取url参数*}
     function getQueryVariable(variable) {

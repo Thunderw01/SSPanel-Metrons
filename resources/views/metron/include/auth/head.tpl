@@ -149,7 +149,7 @@
 
     <div style="overflow:hidden" class="login login-1 login-signin-on d-flex flex-row-fluid" id="kt_login">
         <div class="d-flex flex-center bgi-size-cover bgi-no-repeat flex-row-fluid row"
-             style="1background-image: url('{$metron['index_background_image']}');">
+             style="background-image: url('{$metron['index_background_image']}');">
 
             <div class="col-lg-8 col-12 min-vh-100 background-walk-y position-relative overlay-gradient-bottom"
                  style="background-image: url('{$metron['index_background_image']}');">

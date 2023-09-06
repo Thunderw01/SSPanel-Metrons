@@ -1,4 +1,4 @@
-<div class="modal modal-sticky modal-sticky-bottom-right" id="index-pop-modal" role="dialog" data-backdrop="false">
+<div class="modal modal-sticky modal-sticky-bottom-center" style="top:200px" id="index-pop-modal" role="dialog" data-backdrop="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="card card-custom">

@@ -1,7 +1,7 @@
                                                         {if in_array('ssr',$metron['index_sub'])}
                                                         <!-- SSR订阅 -->
                                                         <div class="btn-group mb-3 mr-3">
-                                                            <button type="button" class="btn btn-pill btn-ssr dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="metron-ssr1 text-white"></i>&nbsp;&nbsp;SSR 订阅&nbsp;&nbsp;</button>
+                                                            <button type="button" class="btn btn-pill btn-surge dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="metron-ssr1 text-white"></i>&nbsp;&nbsp;复制 SSR 订阅链接&nbsp;&nbsp;</button>
                                                             <div class="dropdown-menu">
                                                                 <button type="button" class="dropdown-item copy-text" data-clipboard-text="{$subInfo["ssr"]}">复制 SSR 订阅</button>
                                                                 <div class="dropdown-divider">

@@ -12,10 +12,10 @@
                             <form class="form" id="login_form">
                                 <div id="login_form_1">
                                     <div class="form-group mt-5">
-                                        <input class="form-control h-auto  py-4 px-8" type="text" placeholder="邮箱地址" name="email" id="email" autocomplete="new-password" required />
+                                        <input class="form-control h-auto  py-4 px-8" type="text" placeholder="邮箱地址" name="email" id="email"  required />
                                     </div>
                                     <div class="form-group mt-5">
-                                        <input class="form-control h-auto py-4 px-8" type="password" placeholder="密码" name="password" id="password" autocomplete="new-password" required/>
+                                        <input class="form-control h-auto py-4 px-8" type="password" placeholder="密码" name="password" id="password"  required/>
                                     </div>
                                 </div>
                                 <div id="login_form_2" style="display: none;">

@@ -18,7 +18,7 @@ $_MT['index_enable'] = false;                // true: 开启落地页 false:关�
 
 #####  背景图设置  --------------------------------------------------------------------------------------------
 // 登录/注册页面 背景图
-$_MT['index_background_image'] = "https://cdn.jsdelivr.net/gh/BobCoderS9/metron-assets@3.0.2/metron/media/bg/bg-2.jpg";
+$_MT['index_background_image'] = "/images/login-bg.jpg";
 // 登录/注册页面 LOGO
 $_MT['index_background_logo'] = "https://cdn.jsdelivr.net/gh/BobCoderS9/metron-assets@3.0.2/metron/media/logos/user.png";
 // 用户中心顶部背景图

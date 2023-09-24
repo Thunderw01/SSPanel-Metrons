@@ -8,45 +8,7 @@ use Omnipay\Omnipay;
 
 class MetronPay extends AbstractPayment
 {
-
-
-    public function purchase($request, $response, $args, $telegram = 0){
-        $price = $request->getParam('price') ?? 0;
-        $paylist_id = (int)$request->getParam('paylist_id');
-
-        $shopinfo = array();
-        $shopinfo['id'] = (int)$request->getParam('shopid');
-        $shopinfo['autorenew'] = 0;
-        if ($request->getParam('shopauto')) {
-            $shopinfo['autorenew'] = $request->getParam('shopauto');
-        }
-        $shopinfo['coupon'] = '';
-        if ($request->getParam('shopcoupon')) {
-            $shopinfo['coupon'] = $request->getParam('shopcoupon');
-        }
-        $shopinfo['disableothers'] = 1;
-
-        $xgPay = new XgPay();
-        $result = $xgPay->purchase($price, $shopinfo, $paylist_id);
-
-        if ($result['errcode'] == 0) {
-            $return = array(
-                'ret' => 1,
-                'type' => 'url',
-                'paytype' => $result['paytype'],
-                'tradeno' => $result['pid'],
-                'url' => $result['url']
-            );
-        } else {
-            $return = array(
-                'ret' => 0,
-                'msg' => $result['errmsg']
-            );
-        }
-        return json_encode($return);
-
-    }
-    public function purchase1($request, $response, $args, $telegram = 0)
+    public function purchase($request, $response, $args, $telegram = 0)
     {
         if ($telegram === 0) {
             $price = $request->getParam('price') ?? 0;
@@ -54,7 +16,6 @@ class MetronPay extends AbstractPayment
             $type = isset(explode('_', $pay_type)[1]) ? explode('_', $pay_type)[1] : $request->getParam('type');
             $client = $request->getParam('client');
             $paylist_id = (int)$request->getParam('paylist_id');
-
             $shopinfo = array();
             $shopinfo['id'] = (int)$request->getParam('shopid');
             $shopinfo['autorenew'] = 0;
@@ -98,10 +59,27 @@ class MetronPay extends AbstractPayment
                 $payment_system = MetronSetting::get('max_alipay_pay');
             }
             switch ($payment_system) {
+                case ('mete'):
+                    $mete = new MetePay();
+                    $result = $mete->MetronPay($type, $price * 1.00, $shopinfo, $paylist_id);
+                    if ($result['errcode'] === 0) {
+                        $return = array(
+                            'ret' => 1,
+                            'type' => $result['type'],
+                            'tradeno' => $result['pid'],
+                            'url' => $result['url']
+                        );
+                    } else {
+                        $return = array(
+                            'ret' => 0,
+                            'msg' => $result['errmsg']
+                        );
+                    }
+                    return json_encode($return);
                 case ('wolfpay_qr'):
                     $isqr = 'qr';
                     $wolfpay = new wolfpay();
-                    $result = $wolfpay->MetronPay($type, $price, $shopinfo, $paylist_id, $isqr);
+                    $result = $wolfpay->MetronPay($type, $price, $shopinfo, $paylist_id);
                     if ($result['errcode'] === 0) {
                         $return = array(
                             'ret' => 1,
@@ -122,7 +100,7 @@ class MetronPay extends AbstractPayment
                     }
                     $isqr = 'url';
                     $wolfpay = new wolfpay();
-                    $result = $wolfpay->MetronPay($type, $price, $shopinfo, $paylist_id, $isqr);
+                    $result = $wolfpay->MetronPay($type, $price, $shopinfo, $paylist_id);
                     if ($result['errcode'] === 0) {
                         $return = array(
                             'ret' => 1,
@@ -213,6 +191,23 @@ class MetronPay extends AbstractPayment
                         );
                     }
                     return json_encode($return);
+                case ('easypay'):
+                    $mgate = new EasyPay($_ENV['easypay_app_secret']);
+                    $result = $mgate->MetronPay($type, $price * 1.08, $shopinfo, $paylist_id);
+                    if ($result['errcode'] === 0) {
+                        $return = array(
+                            'ret' => 1,
+                            'type' => 'url',
+                            'tradeno' => $result['pid'],
+                            'url' => $result['url']
+                        );
+                    } else {
+                        $return = array(
+                            'ret' => 0,
+                            'msg' => $result['errmsg']
+                        );
+                    }
+                    return json_encode($return);
                 case ('theadpay'):
                     $theadpay = new THeadPay();
                     $result = $theadpay->MetronPay($type, $price, $shopinfo, $paylist_id);
@@ -249,7 +244,7 @@ class MetronPay extends AbstractPayment
                     return json_encode($return);
                 case ('alpha'):
                     $alpha = new AlphaPay();
-                    $result = $alpha->MetronPay($type, $price, $shopinfo, $paylist_id);
+                    $result = $alpha->MetronPay($type, $price * 1.08, $shopinfo, $paylist_id, $isqr);
                     if ($result['errcode'] == 0) {
                         $return = array(
                             'ret' => 1,
@@ -297,7 +292,7 @@ class MetronPay extends AbstractPayment
                 case ('wolfpay_qr'):
                     $isqr = 'qr';
                     $wolfpay = new wolfpay();
-                    $result = $wolfpay->MetronPay($type, $price, $shopinfo, $paylist_id, $isqr);
+                    $result = $wolfpay->MetronPay($type, $price, $shopinfo, $paylist_id);
                     if ($result['errcode'] == 0) {
                         $return = array(
                             'ret' => 1,
@@ -318,7 +313,7 @@ class MetronPay extends AbstractPayment
                     }
                     $isqr = 'url';
                     $wolfpay = new wolfpay();
-                    $result = $wolfpay->MetronPay($type, $price, $shopinfo, $paylist_id, $isqr);
+                    $result = $wolfpay->MetronPay($type, $price, $shopinfo, $paylist_id);
                     if ($result['errcode'] === 0) {
                         $return = array(
                             'ret' => 1,
@@ -441,7 +436,7 @@ class MetronPay extends AbstractPayment
                 case ('alpha'):
                     $type = 'wechat';
                     $alpha = new AlphaPay();
-                    $result = $alpha->MetronPay($type, $price, $shopinfo, $paylist_id);
+                    $result = $alpha->MetronPay($type, $price * 1.08, $shopinfo, $paylist_id, $isqr);
                     if ($result['errcode'] == 0) {
                         $return = array(
                             'ret' => 1,
@@ -456,6 +451,41 @@ class MetronPay extends AbstractPayment
                         );
                     }
                     return json_encode($return);
+                case ('easypay'):
+                    $mgate = new EasyPay($_ENV['easypay_app_secret']);
+                    $result = $mgate->MetronPay($type, $price, $shopinfo, $paylist_id);
+                    if ($result['errcode'] === 0) {
+                        $return = array(
+                            'ret' => 1,
+                            'type' => 'url',
+                            'tradeno' => $result['pid'],
+                            'url' => $result['url']
+                        );
+                    } else {
+                        $return = array(
+                            'ret' => 0,
+                            'msg' => $result['errmsg']
+                        );
+                    }
+                    return json_encode($return);
+                case ('mete'):
+                    $mete = new MetePay();
+                    $result = $mete->MetronPay($type, $price * 1.00, $shopinfo, $paylist_id);
+                    if ($result['errcode'] === 0) {
+                        $return = array(
+                            'ret' => 1,
+                            'type' => 'qrcode',
+                            'tradeno' => $result['pid'],
+                            'url' => $result['url']
+                        );
+                    } else {
+                        $return = array(
+                            'ret' => 0,
+                            'msg' => $result['errmsg']
+                        );
+                    }
+                    return json_encode($return);
+                    break;
                 default:
                     $return = array(
                         'ret' => 0,
@@ -473,7 +503,7 @@ class MetronPay extends AbstractPayment
                 case ('wolfpay_qr'):
                     $isqr = 'qr';
                     $wolfpay = new wolfpay();
-                    $result = $wolfpay->MetronPay($type, $price, $shopinfo, $paylist_id, $isqr);
+                    $result = $wolfpay->MetronPay($type, $price, $shopinfo, $paylist_id);
                     if ($result['errcode'] == 0) {
                         $return = array(
                             'ret' => 1,
@@ -494,7 +524,7 @@ class MetronPay extends AbstractPayment
                     }
                     $isqr = 'url';
                     $wolfpay = new wolfpay();
-                    $result = $wolfpay->MetronPay($type, $price, $shopinfo, $paylist_id, $isqr);
+                    $result = $wolfpay->MetronPay($type, $price, $shopinfo, $paylist_id);
                     if ($result['errcode'] === 0) {
                         $return = array(
                             'ret' => 1,
@@ -511,7 +541,7 @@ class MetronPay extends AbstractPayment
                     return json_encode($return);
                 case ('alpha'):
                     $alpha = new AlphaPay();
-                    $result = $alpha->MetronPay($type, $price, $shopinfo, $paylist_id);
+                    $result = $alpha->MetronPay($type, $price * 1.08, $shopinfo, $paylist_id, $isqr);
                     if ($result['errcode'] == 0) {
                         $return = array(
                             'ret' => 1,
@@ -594,10 +624,6 @@ class MetronPay extends AbstractPayment
 
     public function notify($request, $response, $args)
     {
-        $mgate = new XgPay();
-        $mgate->notify($request, $response, $args);
-        return;
-
         $path = $request->getUri()->getPath();
         file_put_contents(BASE_PATH . '/storage/pay.log', json_encode(file_get_contents("php://input")) . "\r\n", FILE_APPEND);
         $path_exploded = explode('/', $path);
@@ -708,6 +734,14 @@ class MetronPay extends AbstractPayment
                 $mgate = new MGate();
                 $mgate->notify($request, $response, $args);
                 return;
+            case ('easypay'):
+                $mgate = new EasyPay($_ENV['easypay_app_secret']);
+                $mgate->notify($request, $response, $args);
+                return;
+            case ('mete'):
+                $mete = new MetePay();
+                $mete->notify($request, $response, $args);
+                return;
             case ('theadpay'):
                 $notify = new THeadPay();
                 $notify->notify($request, $response, $args);
@@ -730,12 +764,9 @@ class MetronPay extends AbstractPayment
         return 1;
     }
 
-//    public function getReturnHTML($request, $response, $args){
-//
-//    }
     public function getReturnHTML($request, $response, $args)
     {
-        $tradeno = $request->getParam('sdorderno');
+        $tradeno = $_GET['tradeno'];
         if ($tradeno == '' || $tradeno == null) {
             $tradeno = $_GET['source'];
         }
@@ -743,7 +774,7 @@ class MetronPay extends AbstractPayment
             $tradeno = $_GET['out_trade_no'];
         }
         $result = array();
-        $p = Paylist::where('tradeno', '=', $tradeno)->first();  # 获取对应的充值记录
+        $p = Paylist::where('tradeno', '=', $tradeno)->first();        # 获取对应的充值记录
         if ($p->status === 1) {      # 充值已完成
             $result['status'] = 1;
             # 记录中商品字段存在

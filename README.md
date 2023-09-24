@@ -1,6 +1,7 @@
-## SSPanel-Metron-Pro主题
+# SSPanel-Metron-Pro主题
 - 深度优化原版metron主题（其他主题已删除）
 - 绝大部分js,css资源本地化（原版本的cdn加载太慢，并且部分运营商已墙，会导致系统打开页面错乱）,若需要请在配置.metron_setting.php修改：
+- 暂时不要使用，本地化有问题
 ```php
 $_MT['assets_url']  = $_MT['assets_true']?'https://cdn.jsdelivr.net/gh/mt-theme/metron-assets@'.$_MT['assets_bb'].'/metron' : '/theme/metron';
 ```
